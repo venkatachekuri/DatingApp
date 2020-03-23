@@ -12,7 +12,7 @@ values: any;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
- 
+
   }
 
 registerToggle() {
