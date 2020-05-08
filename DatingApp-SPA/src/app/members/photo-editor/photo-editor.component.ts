@@ -50,7 +50,7 @@ maxFileSize: 10 * 1024 * 1024
 this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
 
 this.uploader.onSuccessItem = (item , response , status , headers) => {
-  if(response){
+  if (response){
     const res: Photo = JSON.parse(response);
     const photo = {
       id: res.id,
@@ -60,6 +60,12 @@ this.uploader.onSuccessItem = (item , response , status , headers) => {
       isMain: res.isMain
     };
     this.photos.push(photo);
+
+    if (photo.isMain) {
+      this.authService.changeMemberPhoto(photo.url);
+      this.authService.currentUser.photoUrl = photo.url;
+      localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+    }
   }
 
 };
